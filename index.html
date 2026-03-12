@@ -40,6 +40,38 @@
     img { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
 
+    .skip-link {
+      position: absolute;
+      top: -48px;
+      left: 1.5rem;
+      background: var(--gold);
+      color: var(--ink);
+      padding: 0.6rem 1rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      z-index: 999;
+      transition: top 0.2s ease;
+    }
+    .skip-link:focus {
+      top: 1.2rem;
+    }
+
+    /* ─── Focus ─────────────────────────────────────────────── */
+    :focus-visible {
+      outline: 2px solid var(--gold-light);
+      outline-offset: 3px;
+    }
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible {
+      outline: 2px solid var(--gold-light);
+      outline-offset: 3px;
+    }
+
     /* ─── Utility ────────────────────────────────────────────── */
     .section-label {
       font-family: 'Raleway', sans-serif;
@@ -136,7 +168,15 @@
       background: var(--gold) !important;
       color: var(--ink) !important;
     }
-    .nav-toggle { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
+    .nav-toggle {
+      display: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      background: transparent;
+      border: 1px solid rgba(201,148,58,0.4);
+      padding: 0.5rem;
+    }
     .nav-toggle span {
       display: block; width: 24px; height: 1.5px;
       background: var(--gold-light); transition: all 0.3s;
@@ -148,8 +188,8 @@
       height: 100vh;
       min-height: 620px;
       display: flex;
-      align-items: flex-end;
-      justify-content: flex-start;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
     }
     .hero-bg {
@@ -169,17 +209,25 @@
       position: absolute;
       inset: 0;
       background: linear-gradient(
-        135deg,
-        rgba(14,6,8,0.82) 0%,
-        rgba(107,18,32,0.35) 50%,
-        rgba(14,6,8,0.65) 100%
+        120deg,
+        rgba(14,6,8,0.75) 0%,
+        rgba(107,18,32,0.3) 45%,
+        rgba(14,6,8,0.9) 100%
       );
     }
     .hero-content {
       position: relative;
       z-index: 2;
-      padding: 0 5rem 6rem;
+      padding: 2.75rem 3.25rem;
       max-width: 680px;
+      margin-right: 0;
+      background: rgba(14,6,8,0.6);
+      border: 1px solid rgba(201,148,58,0.25);
+      border-radius: 6px;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.35);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      text-align: center;
       animation: fadeUp 1.2s ease both;
     }
     @keyframes fadeUp {
@@ -197,6 +245,7 @@
       padding-top: 0.5rem;
       margin-bottom: 1.2rem;
       animation: fadeUp 1.2s 0.2s ease both;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.35);
     }
     .hero-title {
       font-size: clamp(3rem, 7vw, 5.5rem);
@@ -205,6 +254,7 @@
       letter-spacing: 0.02em;
       margin-bottom: 0.3rem;
       animation: fadeUp 1.2s 0.3s ease both;
+      text-shadow: 0 8px 22px rgba(0,0,0,0.4);
     }
     .hero-title em {
       font-style: italic;
@@ -214,14 +264,16 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: clamp(1.1rem, 2.5vw, 1.5rem);
       font-style: italic;
-      color: var(--muted);
+      color: #e7d8c7;
       margin-bottom: 2rem;
       animation: fadeUp 1.2s 0.45s ease both;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.35);
     }
     .hero-actions {
       display: flex;
       gap: 1rem;
       flex-wrap: wrap;
+      justify-content: center;
       animation: fadeUp 1.2s 0.6s ease both;
     }
     .btn-primary {
@@ -272,7 +324,7 @@
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.3; } }
 
     /* ─── Section wrapper ────────────────────────────────────── */
-    section { padding: 6rem 5rem; }
+    section { padding: 6rem 5rem; scroll-margin-top: calc(var(--nav-h) + 1rem); }
     .section-inner { max-width: 1100px; margin: 0 auto; }
 
     /* ─── About ──────────────────────────────────────────────── */
@@ -368,7 +420,7 @@
       width: 100%; height: 100%;
       object-fit: cover;
       transition: transform 0.6s ease;
-      filter: brightness(0.65) sepia(20%);
+      filter: brightness(0.55) sepia(20%) contrast(1.05);
     }
     .class-card:hover img { transform: scale(1.05); }
     .class-body {
@@ -378,18 +430,25 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 2.5rem;
-      background: linear-gradient(to top, rgba(14,6,8,0.9) 0%, rgba(107,18,32,0.2) 50%, transparent 100%);
+      background: linear-gradient(
+        to top,
+        rgba(10,4,6,0.95) 0%,
+        rgba(14,6,8,0.7) 55%,
+        rgba(14,6,8,0.25) 100%
+      );
     }
     .class-body h3 {
       font-size: clamp(1.8rem, 3vw, 2.5rem);
       color: var(--white);
       margin-bottom: 0.5rem;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.5);
     }
     .class-body p {
       font-size: 0.88rem;
-      color: #c9bba8;
+      color: #f3e9dd;
       margin-bottom: 1.2rem;
       max-width: 380px;
+      text-shadow: 0 4px 14px rgba(0,0,0,0.5);
     }
     .class-details {
       display: flex;
@@ -397,14 +456,15 @@
       gap: 0.8rem;
     }
     .detail-pill {
-      background: rgba(201,148,58,0.15);
-      border: 1px solid rgba(201,148,58,0.3);
-      color: var(--gold-light);
+      background: rgba(201,148,58,0.28);
+      border: 1px solid rgba(201,148,58,0.7);
+      color: #fff4dc;
       font-size: 0.62rem;
       font-weight: 500;
       letter-spacing: 0.15em;
       text-transform: uppercase;
       padding: 0.3rem 0.8rem;
+      text-shadow: 0 3px 10px rgba(0,0,0,0.45);
     }
     .classes-info {
       margin-top: 2px;
@@ -499,6 +559,8 @@
       color: var(--gold);
       cursor: pointer;
       line-height: 1;
+      background: transparent;
+      border: none;
     }
 
     /* ─── Performances ───────────────────────────────────────── */
@@ -565,10 +627,19 @@
       display: flex;
       justify-content: center;
       align-items: flex-start;
+      flex-direction: column;
+      gap: 1rem;
     }
     .fb-wrap iframe {
       border-radius: 2px;
       max-width: 100%;
+    }
+    .fb-fallback {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+      max-width: 520px;
+      margin: 0 auto;
     }
 
     /* ─── Contact ────────────────────────────────────────────── */
@@ -741,7 +812,13 @@
       .about-grid, .contact-grid, .classes-grid, .performances-grid { grid-template-columns: 1fr; gap: 2.5rem; }
       .gallery-grid { grid-template-columns: 1fr 1fr; }
       .gallery-item:first-child { grid-column: span 2; }
-      .hero-content { padding: 0 2rem 4rem; }
+      #hero { justify-content: center; }
+      .hero-content {
+        margin-right: 0;
+        padding: 2.25rem 2rem;
+        text-align: center;
+      }
+      .hero-actions { justify-content: center; }
       .hero-scroll { display: none; }
       .classes-info { grid-template-columns: 1fr; gap: 1.5rem; }
     }
@@ -750,15 +827,26 @@
       .gallery-item:first-child { grid-column: span 1; }
       footer { padding: 2rem 1.5rem; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
   </style>
 </head>
 <body>
 
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
 <!-- ══════════ NAV ══════════ -->
-<nav id="navbar">
+<nav id="navbar" aria-label="Primary">
   <div class="nav-logo">
     Kathak Kala Kendra
-    <span>Dharamshala · Since 2014</span>
+    <span>Dharamshala · Since 2004</span>
   </div>
   <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
@@ -766,13 +854,14 @@
     <li><a href="#gallery">Gallery</a></li>
     <li><a href="#performances">Performances</a></li>
     <li><a href="#updates">Updates</a></li>
-    <li><a href="#contact" class="nav-cta">Enrol Now</a></li>
+    <li><a href="#contact" class="nav-cta">Enroll Now</a></li>
   </ul>
-  <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+  <button class="nav-toggle" id="navToggle" onclick="toggleNav()" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks" type="button">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 
+<main id="main-content" tabindex="-1">
 <!-- ══════════ HERO ══════════ -->
 <section id="hero">
   <div class="hero-bg"></div>
@@ -923,19 +1012,19 @@
       <h2>Gallery</h2>
     </div>
     <div class="gallery-grid">
-      <div class="gallery-item reveal" onclick="openLightbox('images/performance.jpg')">
+      <div class="gallery-item reveal" role="button" tabindex="0" aria-label="Open image: Students in performance" onclick="openLightbox('images/performance.jpg')">
         <img src="images/performance.jpg" alt="Students in performance" />
       </div>
-      <div class="gallery-item reveal reveal-delay-1" onclick="openLightbox('images/kathak2.jpg')">
+      <div class="gallery-item reveal reveal-delay-1" role="button" tabindex="0" aria-label="Open image: Kathak performance group" onclick="openLightbox('images/kathak2.jpg')">
         <img src="images/kathak2.jpg" alt="Kathak performance group" />
       </div>
-      <div class="gallery-item reveal reveal-delay-2" onclick="openLightbox('images/performance2.jpg')">
+      <div class="gallery-item reveal reveal-delay-2" role="button" tabindex="0" aria-label="Open image: Stage performance" onclick="openLightbox('images/performance2.jpg')">
         <img src="images/performance2.jpg" alt="Stage performance" />
       </div>
-      <div class="gallery-item reveal reveal-delay-1" onclick="openLightbox('images/studio.jpg')">
+      <div class="gallery-item reveal reveal-delay-1" role="button" tabindex="0" aria-label="Open image: Studio class" onclick="openLightbox('images/studio.jpg')">
         <img src="images/studio.jpg" alt="Studio class" />
       </div>
-      <div class="gallery-item reveal reveal-delay-2" onclick="openLightbox('images/holi.jpg')">
+      <div class="gallery-item reveal reveal-delay-2" role="button" tabindex="0" aria-label="Open image: Holi celebration at the Kendra" onclick="openLightbox('images/holi.jpg')">
         <img src="images/holi.jpg" alt="Holi celebration at the Kendra" />
       </div>
     </div>
@@ -943,8 +1032,8 @@
 </section>
 
 <!-- Lightbox -->
-<div class="lightbox" id="lightbox" onclick="closeLightbox()">
-  <span class="lightbox-close" onclick="closeLightbox()">×</span>
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" onclick="closeLightbox()">
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Close image viewer" onclick="closeLightbox()">×</button>
   <img id="lightboxImg" src="" alt="Gallery image" />
 </div>
 
@@ -991,19 +1080,26 @@
     <h2>Latest Updates</h2>
     <p class="sub">Follow our Facebook page for news, performances, and announcements</p>
     <div class="fb-wrap reveal">
-      <iframe
-        src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100008042598278&tabs=timeline&width=500&height=600&small_header=true&adapt_container_width=true&hide_cover=false&show_facepile=false&appId"
-        width="500"
-        height="600"
-        style="border:none; overflow:hidden; background:transparent;"
-        scrolling="no"
-        frameborder="0"
-        allowfullscreen="true"
-        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-      ></iframe>
+      <div id="fb-root"></div>
+      <div
+        class="fb-page"
+        data-href="https://www.facebook.com/profile.php?id=100008042598278"
+        data-tabs="timeline"
+        data-width="500"
+        data-height="600"
+        data-small-header="true"
+        data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="false"
+      >
+        <blockquote cite="https://www.facebook.com/profile.php?id=100008042598278" class="fb-xfbml-parse-ignore">
+          <a href="https://www.facebook.com/profile.php?id=100008042598278">Kathak Kala Kendra</a>
+        </blockquote>
+      </div>
+      <p class="fb-fallback">If the feed doesn’t load, Facebook may be blocking embedded profiles. Opening the page directly will always work.</p>
     </div>
     <div style="margin-top:2rem;">
-      <a href="https://www.facebook.com/profile.php?id=100008042598278" target="_blank" class="btn-primary">
+      <a href="https://www.facebook.com/profile.php?id=100008042598278" target="_blank" rel="noopener" class="btn-primary">
         View Facebook Page
       </a>
     </div>
@@ -1016,7 +1112,7 @@
     <div class="contact-grid">
       <div class="contact-left reveal">
         <p class="section-label">Get in Touch</p>
-        <h2>Enrol or Enquire</h2>
+        <h2>Enroll or Inquire</h2>
         <p>Whether you are a complete beginner or a returning student, we welcome you. Reach out to learn more about classes, schedules, and fees.</p>
         <div class="contact-items">
           <div class="contact-item">
@@ -1052,35 +1148,37 @@
       </div>
 
       <div class="contact-right reveal reveal-delay-1">
-        <h3>Send an Enquiry</h3>
-        <div class="form-group">
-          <label>Your Name</label>
-          <input type="text" placeholder="Full name" />
-        </div>
-        <div class="form-group">
-          <label>Email Address</label>
-          <input type="email" placeholder="your@email.com" />
-        </div>
-        <div class="form-group">
-          <label>Phone Number</label>
-          <input type="tel" placeholder="+91 XXXXX XXXXX" />
-        </div>
-        <div class="form-group">
-          <label>Interested In</label>
-          <select>
-            <option value="">Select a class</option>
-            <option>Kathak Dance – In Person</option>
-            <option>Kathak Dance – Online</option>
-            <option>Tabla – In Person</option>
-            <option>Tabla – Online</option>
-            <option>Both Kathak &amp; Tabla</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message (optional)</label>
-          <textarea placeholder="Tell us a little about yourself or your child, your experience level, availability, etc."></textarea>
-        </div>
-        <button class="btn-submit" onclick="handleSubmit()">Send Enquiry</button>
+        <h3>Send an Inquiry</h3>
+        <form id="inquiryForm">
+          <div class="form-group">
+            <label for="contact-name">Your Name</label>
+            <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Full name" />
+          </div>
+          <div class="form-group">
+            <label for="contact-email">Email Address</label>
+            <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="contact-phone">Phone Number</label>
+            <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="+91 XXXXX XXXXX" />
+          </div>
+          <div class="form-group">
+            <label for="contact-interest">Interested In</label>
+            <select id="contact-interest" name="interest">
+              <option value="">Select a class</option>
+              <option>Kathak Dance – In Person</option>
+              <option>Kathak Dance – Online</option>
+              <option>Tabla – In Person</option>
+              <option>Tabla – Online</option>
+              <option>Both Kathak &amp; Tabla</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact-message">Message (optional)</label>
+            <textarea id="contact-message" name="message" placeholder="Tell us a little about yourself or your child, your experience level, availability, etc."></textarea>
+          </div>
+          <button class="btn-submit" type="submit">Send Inquiry</button>
+        </form>
         <p style="font-size:0.72rem; color:var(--muted); margin-top:0.8rem; text-align:center;">
           Or call us directly — we're happy to answer any questions.
         </p>
@@ -1090,11 +1188,12 @@
 </section>
 
 <!-- ══════════ FOOTER ══════════ -->
+</main>
 <footer>
   <div class="footer-logo">Kathak Kala Kendra</div>
   <div class="footer-sub">Dharamshala · Himachal Pradesh · India</div>
   <div class="footer-social">
-    <a class="social-btn" href="https://www.facebook.com/profile.php?id=100008042598278" target="_blank" title="Facebook">f</a>
+    <a class="social-btn" href="https://www.facebook.com/profile.php?id=100008042598278" target="_blank" rel="noopener" title="Facebook" aria-label="Facebook">f</a>
   </div>
   <hr />
   <p class="footer-copy">
@@ -1111,7 +1210,10 @@
 
   /* ── Mobile nav ── */
   function toggleNav() {
-    document.getElementById('navLinks').classList.toggle('open');
+    const navLinks = document.getElementById('navLinks');
+    const navToggle = document.getElementById('navToggle');
+    const isOpen = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen);
   }
 
   /* ── Scroll-reveal ── */
@@ -1120,21 +1222,74 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  /* ── Gallery keyboard access ── */
+  document.querySelectorAll('.gallery-item').forEach(item => {
+    item.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        item.click();
+      }
+    });
+  });
+
   /* ── Lightbox ── */
+  let lastFocusedElement = null;
   function openLightbox(src) {
+    const lightbox = document.getElementById('lightbox');
     document.getElementById('lightboxImg').src = src;
-    document.getElementById('lightbox').classList.add('active');
+    lastFocusedElement = document.activeElement;
+    lightbox.classList.add('active');
+    lightbox.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
+    const closeBtn = document.getElementById('lightboxClose');
+    if (closeBtn) closeBtn.focus();
   }
   function closeLightbox() {
-    document.getElementById('lightbox').classList.remove('active');
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    lightbox.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
+    if (lastFocusedElement) lastFocusedElement.focus();
   }
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && document.getElementById('lightbox').classList.contains('active')) {
+      closeLightbox();
+    }
+  });
+
+  /* ── Facebook SDK ── */
+  (function(d, s, id) {
+    if (d.getElementById(id)) return;
+    const js = d.createElement(s);
+    js.id = id;
+    js.src = 'https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v19.0';
+    const fjs = d.getElementsByTagName(s)[0];
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
   /* ── Form submit ── */
-  function handleSubmit() {
-    alert('Thank you for your enquiry! Guruji will get back to you shortly.\n\nFor immediate response, please call:\n+91 94188 35288');
+  const inquiryForm = document.getElementById('inquiryForm');
+  if (inquiryForm) {
+    inquiryForm.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const phone = document.getElementById('contact-phone').value.trim();
+      const interest = document.getElementById('contact-interest').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      const subject = encodeURIComponent('Kathak Kala Kendra Inquiry');
+      const bodyLines = [
+        `Name: ${name || 'Not provided'}`,
+        `Email: ${email || 'Not provided'}`,
+        `Phone: ${phone || 'Not provided'}`,
+        `Interested in: ${interest || 'Not specified'}`,
+        '',
+        message || 'Message: (no additional details)'
+      ];
+      const body = encodeURIComponent(bodyLines.join('\n'));
+      window.location.href = `mailto:dharmendrajainkathak@gmail.com?subject=${subject}&body=${body}`;
+    });
   }
 </script>
 
